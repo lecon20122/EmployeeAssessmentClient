@@ -3,14 +3,29 @@ import AssessmentAnswerCard from '@/components/AssessmentAnswer/AssessmentAnswer
 import Image from 'next/image'
 import { useGetAssessmentAnswersQuery } from '../rest-api/assessment-answers/get-assessment-answers';
 import SkeletonCard from '@/components/shared/skeletonCard';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { ROUTES } from '@/utilities/routes';
 
 export default function Home() {
 
   const { data, isLoading, isSuccess } = useGetAssessmentAnswersQuery()
+  const { status } = useSession();
 
-  // if (isLoading) {
-  //   return <div className='text-center text-black p-4'>Loading...</div>
-  // }
+
+  if (status === 'unauthenticated') {
+    return <div className='flex justify-center text-black p-4'>
+      {/* button says you need to sign in */}
+      <div className='flex justify-center text-black p-4'>
+        <Link href={ROUTES.SIGNIN} className="text-white">
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Sign in
+          </button>
+        </Link>
+      </div>
+    </div>
+  }
+
 
   if (isLoading) {
     return <SkeletonCard times={8} />
@@ -36,8 +51,6 @@ export default function Home() {
       <p className='text-2xl font-semibold text-black text-center'>Something went wrong</p>
     </>
   }
-
-  console.log(data)
 
   return (
     <AssessmentAnswerCard assessmentAnswers={data} />
