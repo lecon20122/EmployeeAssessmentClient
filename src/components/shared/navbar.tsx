@@ -53,9 +53,6 @@ export default function Navbar() {
                             <Link href={ROUTES.SIGNIN} className="text-white">
                                 Sign in
                             </Link>
-                            <a href="#" className="text-white">
-                                Register
-                            </a>
                         </div>
                     )}
 
