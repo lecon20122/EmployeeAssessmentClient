@@ -69,9 +69,9 @@ export default function Navbar() {
                         {/* Authentication Section for Mobile */}
                         <div>
                             {/* If the user is authenticated, show their name or email */}
-                            <span className="text-white text-sm mb-4">John Doe</span>
+                            <span className="text-white text-sm mr-4">{data?.user.email}</span>
                             {/* If the user is not authenticated, you can show a login button */}
-                            <a href="#" className="text-white">
+                            <a onClick={(e) => signOut()} href="#" className="text-white">
                                 Logout
                             </a>
                         </div>
